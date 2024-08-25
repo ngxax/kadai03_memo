@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <title>myMemoPad</title>
     <script src="js/jquery-2.1.3.min.js"></script>
     <link rel="stylesheet" href="css/sample.css">
-</head>
 
 <body>
 
@@ -15,7 +14,7 @@
     </header>
 
     <main style="display: none;">
-        <!-- 曜日ラベル -->
+    <!-- 曜日ラベル -->
     <div class="week">
         <ul>
             <li id="sun">日</li>
@@ -26,8 +25,12 @@
             <li id="fri">金</li>
             <li id="sat">土</li>
         </ul>
-        
     </div>
+    <!-- 日付表示 -->
+    <div id='calender'></div>
+
+
+        
         <div class="calendar01">
         <textarea id="text-area01"></textarea>
         <textarea id="text-area01"></textarea>
@@ -107,11 +110,37 @@
         }
 
 
+        // 上部カレンダー今日の日付
+        // 日付の取得
+        let today = new Date();
+        let day = new Date(today.getFullYear(),today.getMonth(),1);
+        // 変数指定
+        for(let i=1;i <= day.getDay();i++){
+            $('#calender').append($('<div>'));
+        }
+        while(day.getMonth() === today.getMonth()){
+            $('#calender').append($('<div>').html(day.getDate()).addClass('day').addClass('weekday_'+day.getDay()).addClass(day.getDate() === today.getDate() ? 'today': ''));
+             day = new Date(day.getFullYear() , day.getMonth() , day.getDate() + 1);
+        }
+
+        const obj = {
+            a:"日",
+            // b:月,
+            // c:火,
+            // d:水,
+            // e:木,
+            // f:金,
+            // g:土,
+        };
+        //2.繰返し処理で、文字列とオブジェクトを組み合わせ作成
+        for (let a in obj) {
+        //3.変数「str」に入ってる文字列を pタグid="view"に表示
+        $("#week").append(obj[a] + "<br>");
+        }
+        // const week = document.write(new Date(2024,8,25));
+        // $("#view").val(day);
 
 
-
-        // ロード時に表示
-        // こんなこともできる例
     </script>
 </body>
 
